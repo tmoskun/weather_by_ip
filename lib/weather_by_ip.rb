@@ -7,11 +7,8 @@ class WeatherByIp
   
       include WeatherInfo
             
-      def get_weather ip, key
-        Weather.new(Weather.get_results_by_ip(ip, key, :weather => :zip_code))
-        rescue
-          puts "Cannot obtain location or weather. Verify that you've obtained and set the api_key for the ipinfodb.com webservice"
-          return
+      def get_weather ip, key = GeoIp.api_key
+        Weather.new(Weather.get_results_by_ip(ip, :key => key, :weather => :zip_code))
       end
             
   end

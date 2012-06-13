@@ -16,6 +16,6 @@ Gem::Specification.new do |gem|
   gem.version       = WeatherInfo::VERSION
   
   gem.add_development_dependency "minitest"
-  gem.add_dependency('api_object', '>= 0.4')
+  gem.add_dependency('api_object', '>= 0.5.1')
   
 end

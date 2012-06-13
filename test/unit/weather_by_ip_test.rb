@@ -7,8 +7,18 @@ class WeatherByIpTest < MiniTest::Unit::TestCase
     IP = '99.156.82.20'
   
     def test_should_get_correct_weather
-        weather = WeatherByIp.get_weather(IP, ARGV.last)
-        unless weather.nil?
+        check_weather WeatherByIp.get_weather(IP, ARGV.last)
+
+    end
+    
+    def test_should_get_correct_weather_with_key_preset
+        GeoIp.api_key = ARGV.last
+        check_weather WeatherByIp.get_weather(IP)
+    end
+    
+private
+    def check_weather weather
+       unless weather.nil?
           refute_nil(weather.forecast_information)
           refute_nil(weather.current_conditions)
           refute_nil(weather.forecast_conditions)
