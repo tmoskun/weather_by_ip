@@ -29,7 +29,7 @@ The gem also uses Google weather service to the weather information by location.
 The weather information then is obtained as the following:
 
 ```
-WeatherByIp.get_weather(\<your ip\>, \<your ipinfodb_key\>)
+WeatherByIp.get_weather(<your ip>, <your ipinfodb_key>)
 ```
 
 ## Limitations
