@@ -13,10 +13,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "weather_by_ip"
   gem.require_paths = ["lib"]
-  gem.version       = WeatherByIp::VERSION
+  gem.version       = WeatherInfo::VERSION
   
   gem.add_development_dependency "minitest"
-  gem.add_dependency('geo_ip') 
-  gem.add_dependency('api_object', '>= 0.3')
+  gem.add_dependency('api_object', '>= 0.4')
   
 end

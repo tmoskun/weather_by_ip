@@ -5,15 +5,13 @@ class WeatherByIp
 
   class << self
   
-      def api_key=(key)
-        GeoIp.api_key = key
-      end
+      include WeatherInfo
             
-      def get_weather ip
-        location = GeoIp.geolocation(ip)
-        Weather.new(:weather => location.zip_code)
+      def get_weather ip, key
+        Weather.new(Weather.get_results_by_ip(ip, key, :weather => :zip_code))
         rescue
-          puts "Cannot obtain location or weather. Verify that you've obtained and set the api_key for ipinfodb.com webservice"
+          puts "Cannot obtain location or weather. Verify that you've obtained and set the api_key for the ipinfodb.com webservice"
+          return
       end
             
   end

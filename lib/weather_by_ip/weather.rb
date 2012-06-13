@@ -1,6 +1,8 @@
+require 'api_object'
 module WeatherInfo 
 
-  include ActiveApi
+  URL = "http://www.google.com"
+  
   def self.included(base)
     base.send(:include, ActiveApi)
   end
@@ -9,11 +11,14 @@ module WeatherInfo
     def to_s
       inspect
     end
+    def get_icon_path icon
+      "#{URL.chomp('/')}/#{icon}"
+    end
   end
   
   class ForecastInfo < ActiveApi::ApiObject
     include WeatherMethods
-    attr_reader :city, :current_date, :current_time
+    attr_reader :city, :postal_code, :current_date, :current_time
     
     api_column :current_date, :forecast_date
     api_column :current_time, :current_date_time
@@ -31,7 +36,7 @@ module WeatherInfo
   
   class CurrentWeather < ActiveApi::ApiObject
     include WeatherMethods
-    attr_reader :sky, :temp_f, :temp_c, :humidity, :wind
+    attr_reader :sky, :temp_f, :temp_c, :humidity, :wind, :icon
     
     api_column :sky, :condition
     api_column :wind, :wind_condition
@@ -43,7 +48,7 @@ module WeatherInfo
   
   class WeatherForecast < ActiveApi::ApiObject
     include WeatherMethods
-    attr_reader :day_of_week, :temp_low, :temp_high, :sky
+    attr_reader :day_of_week, :sky, :temp_low, :temp_high, :icon
     
     api_column :temp_low, :low
     api_column :temp_high, :high
@@ -57,11 +62,10 @@ module WeatherInfo
   end
   
   class Weather < ActiveApi::ApiObject
-    extend LoadFromXML
     include WeatherMethods
     attr_reader :forecast_information, :current_conditions, :forecast_conditions
     
-    initialize_from_api :url => "http://www.google.com/ig/", :action => 'api', :data_tags => :data
+    initialize_from_api :url => "#{URL}/ig/", :action => 'api', :data_tags => :data
     
     api_association :forecast_information, :as => ForecastInfo
     api_association :current_conditions, :as => CurrentWeather
