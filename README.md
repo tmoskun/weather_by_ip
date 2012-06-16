@@ -26,15 +26,30 @@ Consider making a donation to [ipinfodb.com](http://ipinfodb.com/) at [http://ip
 
 The gem also uses Google weather service to the weather information by location. It doesn't require any key. 
 
+It's also has functionality to get weather information by city name or zip code. In this case, registration with ipinfodb.com is not needed. 
+
 The weather information then is obtained as the following:
 
 ```
-WeatherByIp.get_weather(<your ip>, <your ipinfodb_key>)
+WeatherByIp.get_weather('<your ip>', '<your ipinfodb_key>')
+
+or 
+
+GeoIp.api_key = <your key>
+WeatherByIp.get_weather('<your ip>')
+
+or
+
+WeatherByIp.get_weather('<your city, state or zip code>')
+WeatherByIp.get_weather('Santa Clara, CA')
+WeatherByIp.get_weather('78744')
 ```
 
 ## Limitations
 
-THe location by ip service is free and doesn't always give the correct location. 
+* The location by ip service is free and doesn't always give the correct location.
+* Retrieval by zip code has been tested on the US and Canadian zip codes. It's recommended to use city names if retrieval by zip code doesn't work. 
+ 
 
 ## Testing
 

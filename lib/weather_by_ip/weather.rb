@@ -2,6 +2,7 @@ require 'api_object'
 module WeatherInfo 
 
   URL = "http://www.google.com"
+  IMG_URL = "http://g0.gstatic.com"
   
   def self.included(base)
     base.send(:include, ActiveApi)
@@ -11,8 +12,8 @@ module WeatherInfo
     def to_s
       inspect
     end
-    def get_icon_path icon
-      "#{URL.chomp('/')}/#{icon}"
+    def get_icon_path
+      "#{IMG_URL.chomp('/')}/#{self.icon}" if self.icon
     end
   end
   
@@ -31,7 +32,7 @@ module WeatherInfo
       return false if other_info.nil?
       self.city == other_info.city
     end
-    
+     
   end
   
   class CurrentWeather < ActiveApi::ApiObject
@@ -44,6 +45,7 @@ module WeatherInfo
     def inspect
       "Today #{@temp_f}F (#{@temp_c}C), #{@sky}, #{@humidity}, #{@wind}"
     end
+    
   end
   
   class WeatherForecast < ActiveApi::ApiObject
